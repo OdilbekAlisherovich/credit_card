@@ -1,0 +1,47 @@
+# Credit Card Fraud Detection
+
+## Overview
+This project detects fraudulent credit card transactions using machine learning.
+The dataset is highly imbalanced (~0.17% fraud), making it a challenging classification problem.
+Class imbalance is handled using SMOTE (Synthetic Minority Oversampling Technique).
+
+## Dataset
+- **Source** [Kaggle – Credit Card Fraud Detection](https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud)
+- Download the dataset and place `creditcard.csv` in the project directory
+- 284,807 transactions
+- 492 fraud cases (~0.17%)
+- All features are numerical (PCA-transformed)
+
+## Preprocessing
+- Train-test split (80/20) with stratification
+- Class imbalance handled using **SMOTE** (sampling_strategy=0.1)
+- Feature standardization applied
+
+## Models
+Three models were trained and compared:
+
+| Model | Description 
+| XGBoost | Gradient boosting with early stopping and regularization |
+| LightGBM | Fast gradient boosting, efficient on large datasets |
+| Random Forest | Ensemble of decision trees, robust to overfitting |
+
+## Results  
+| XGBoost ROC AUC- 0.9865 
+          precision    recall  f1-score   support
+Normal       1.00      1.00      1.00     56864
+Fraud        0.54      0.89      0.67        98
+| LightGBM ROC AUC- 0.9835 
+          precision    recall  f1-score   support
+Normal       1.00      1.00      1.00     56864
+Fraud        0.81      0.86      0.83        98
+| Random Forest ROC AUC- 0.9865 
+          precision    recall  f1-score   support
+Normal       1.00      1.00      1.00     56864
+Fraud        0.54      0.89      0.67        98
+
+> LightGBM achieved the best balance between Precision and Recall for fraud detection, but ROC AUC is a bit more in XGBoost and Random Forest
+
+## Installation
+```bash
+pip install xgboost lightgbm scikit-learn imbalanced-learn pandas numpy
+```
